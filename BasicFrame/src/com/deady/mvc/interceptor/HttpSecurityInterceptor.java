@@ -23,7 +23,7 @@ import com.deady.utils.ActionUtil;
 public class HttpSecurityInterceptor extends HandlerInterceptorAdapter {
 
 	public static final PropertiesConfiguration config = ConfigUtil
-			.getProperties("deady");
+			.getProperties("goodsAnalyser");
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(HttpSecurityInterceptor.class);

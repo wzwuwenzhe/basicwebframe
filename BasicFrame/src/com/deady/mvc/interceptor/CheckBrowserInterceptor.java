@@ -17,7 +17,7 @@ import com.deady.mvc.exception.BrowserDenyException;
 public class CheckBrowserInterceptor extends HandlerInterceptorAdapter {
 
 	private static PropertiesConfiguration config = ConfigUtil
-			.getProperties("deady");
+			.getProperties("goodsAnalyser");
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,

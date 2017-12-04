@@ -34,7 +34,7 @@ public class ActionUtil {
 	private static final Logger logger = Logger.getLogger(ActionUtil.class);
 
 	private static PropertiesConfiguration config = ConfigUtil
-			.getProperties("deady");
+			.getProperties("goodsAnalyser");
 
 	public static ModelAndView alert(String message) throws AlertException {
 		throw new AlertException(message);

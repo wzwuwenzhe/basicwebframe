@@ -25,7 +25,7 @@ public class TokenUtil {
 	public static final String TOKEN_NAME_FIELD = "_token";
 
 	public static final PropertiesConfiguration config = ConfigUtil
-			.getProperties("deady");
+			.getProperties("goodsAnalyser");
 
 	protected static int maxTokensInCache = config
 			.getInt("token.cache.max", 10);
