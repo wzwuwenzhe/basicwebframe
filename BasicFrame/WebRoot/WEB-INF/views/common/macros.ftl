@@ -1,4 +1,4 @@
-<#assign companyName="吴先森下单系统"/>
+<#assign companyName="同学会登记报名系统"/>
 <#assign userType='${userType}'/>
 
 <#macro htmlHeader4Main title="${companyName}">

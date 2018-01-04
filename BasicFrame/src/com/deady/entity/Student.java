@@ -24,6 +24,20 @@ public class Student implements Serializable {
 	private String payTime;// 支付时间
 	private String creationTime;// 创建时间
 
+	public Student() {
+
+	}
+
+	public Student(String schoolId, String classId, String id, String name,
+			String phone, String code) {
+		this.schoolId = schoolId;
+		this.classId = classId;
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.code = code;
+	}
+
 	public String getSchoolId() {
 		return schoolId;
 	}

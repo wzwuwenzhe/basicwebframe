@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deady.dao.ClassDAO">
+<insert id="insertStudents" parameterType="java.util.List">
+		   insert into hc_student (school_id,class_id,id,name,phone,code) values
+		   <foreach collection="list" item="student" index="index"
+		       separator=",">
+		       (#{student.schoolId},
+		       #{student.classId},
+		       #{student.id} ,
+		       #{student.name},
+		       #{student.phone} ,
+		       #{student.code} ,
+		       )
+		   </foreach>
+		</insert>
+
+</mapper>
+

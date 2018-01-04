@@ -79,7 +79,8 @@ public class LoginAction {
 			return response;
 		}
 		Operator op = operatorService.getOperatorByLoginName(userName);
-		if (StringUtils.isEmpty(op) || !op.getPwd().equals(pwd)) {
+		if (StringUtils.isEmpty(op)
+				|| !op.getPwd().toUpperCase().equals(pwd.toUpperCase())) {
 			response.setSuccess(false);
 			response.setMessage("用户名或密码错误");
 			return response;

@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.deady.dao.OperatorDAO">
     <insert id="insertOperator">
-        INSERT  INTO operator (id,store_id, name,
+        INSERT  INTO hc_operator (id,store_id, name,
 		phone,user_type,login_name,  pwd)
         VALUES (#{id},#{storeId}, #{name},
 		#{phone},#{userType},#{loginName}, #{pwd})
@@ -15,18 +15,18 @@
         SELECT
             *
         FROM
-            operator
+            hc_operator
         WHERE
             login_name = #{loginName}
     </select>
 
 	<select id="getOperatorCountByStoreId" resultType="Integer" parameterType="string">
-		SELECT COUNT(*) FROM operator 
+		SELECT COUNT(*) FROM hc_operator 
 		WHERE store_id = #{storeId}
 	</select>
 
 	<update id="updateOperatorPwdById" parameterType="string">
-		UPDATE operator SET pwd = #{pwd} WHERE id=#{id} 
+		UPDATE hc_operator SET pwd = #{pwd} WHERE id=#{id} 
 	</update>
 	
 </mapper>
