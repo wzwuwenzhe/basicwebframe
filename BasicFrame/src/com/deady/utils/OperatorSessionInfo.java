@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
 import com.cnblogs.zxub.utils2.configuration.ConfigUtil;
+import com.deady.entity.Operator;
 
 public class OperatorSessionInfo {
 
@@ -66,5 +67,9 @@ public class OperatorSessionInfo {
 	public static boolean isOperatorLogined(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		return session.getAttribute(OPERATOR_SESSION_ID) != null;
+	}
+
+	public static Operator getOperator(HttpServletRequest request) {
+		return (Operator) get(request, OPERATOR_SESSION_ID);
 	}
 }
