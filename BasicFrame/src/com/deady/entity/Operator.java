@@ -16,6 +16,7 @@ public class Operator implements Serializable {
 	private String pwd;// 密码
 	private String creationTime;// 创建时间
 	private String modifyTime;// 修改时间
+	private String msgCode;// 短信验证码
 
 	public String getSchoolId() {
 		return schoolId;
@@ -71,5 +72,13 @@ public class Operator implements Serializable {
 
 	public void setModifyTime(String modifyTime) {
 		this.modifyTime = modifyTime;
+	}
+
+	public String getMsgCode() {
+		return msgCode;
+	}
+
+	public void setMsgCode(String msgCode) {
+		this.msgCode = msgCode;
 	}
 }

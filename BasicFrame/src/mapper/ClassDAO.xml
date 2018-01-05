@@ -8,9 +8,9 @@
         SELECT
             *
         FROM
-            hc_class
+            hc_student
         WHERE
-            id = #{classId}
+            class_id = #{classId}
     </select>
 
 </mapper>

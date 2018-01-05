@@ -8,4 +8,6 @@ public interface StudentService {
 
 	void addStudent(List<Student> studentList);
 
+	Student getStudentByClassIdAndName(String classId, String name);
+
 }
