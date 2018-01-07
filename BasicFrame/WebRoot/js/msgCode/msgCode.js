@@ -6,16 +6,45 @@
     /**
     * 绑定btn按钮的监听事件
     */
-    var bindBtn = function(phone){
+    var bindBtn = function(){
         btn.click(function(){
             // 需要先禁用按钮（为防止用户重复点击）
             btn.attr('disabled', 'disabled');
+            var phone = $("#phone").val();
+            var name = $("#name").val();
             if(!Validator.Phone.test(phone)){
             	alert("请输入正确的手机号码!");
             	reset();
             	return;
             }
             $.ajax({
+            	url:"./sendCodeMsg.htm",
+				type:"POST",
+				dataType:"json",
+				data:{classId:$("#classId").val(),name:name,phone:phone,_token:_token},
+				success:function(response){
+					$("input[name='_token']").val(response.token);
+					if(response.success != true){
+						alert(response.message);
+					}
+					if(response.data=="not_pay"){
+						//打开弹框
+			            layer.open({
+			                type:1,
+			                shift:-1,
+			                title: '付款',
+			                closeBtn:0,
+			                area: ['300px','550px'],
+			                content: $("#payInfo"),
+			                btn:["关闭"],
+			                cancel:function(){
+			                }
+			            });
+					}
+		        },
+		        error:function(){
+		            alert("系统错误,请联系管理员");
+		        }
                 
             })
             .done(function () {
@@ -42,11 +71,10 @@
         window.setTimeout(function() {
             if(timeLeft > 0) {
                 timeLeft -= 1;
-                btn.html(timeLeft + "后重新发送");
+                btn.html(timeLeft + "秒后重新发送");
                 timeCount();
             } else {
                 btn.html("重新发送");
-                bindBtn();
             }
         }, 1000);
     }

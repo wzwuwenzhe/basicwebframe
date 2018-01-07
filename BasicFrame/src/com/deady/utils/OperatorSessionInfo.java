@@ -9,21 +9,30 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 
 import com.cnblogs.zxub.utils2.configuration.ConfigUtil;
 import com.deady.entity.Operator;
+import com.deady.entity.Student;
 
 public class OperatorSessionInfo {
 
 	public static final String OPERATOR_SESSION_ID = "DEADY_OPERATOR";
+	public static final String STUDENT_SESSION_ID = "DEADY_STUDENT";
 
 	public static final PropertiesConfiguration cacheConfig = ConfigUtil
 			.getProperties("memcache");
 	public static final String COOKIE_USER_NAME = "DEADY_NAME";
 	public static final String COOKIE_USER_PWD = "DEADY_PWD";
 
+	/**
+	 * 
+	 * @param request
+	 * @param key
+	 * @param object
+	 * @param time
+	 *            时间 单位分钟
+	 */
 	public static void save(HttpServletRequest request, String key,
-			Object object) {
+			Object object, int time) {
 		HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(60 * cacheConfig
-				.getInt("memcache.sessionTimeOut"));
+		session.setMaxInactiveInterval(time * 60);
 		session.setAttribute(key, object);
 	}
 
@@ -71,5 +80,9 @@ public class OperatorSessionInfo {
 
 	public static Operator getOperator(HttpServletRequest request) {
 		return (Operator) get(request, OPERATOR_SESSION_ID);
+	}
+
+	public static Student getStudent(HttpServletRequest request) {
+		return (Student) get(request, STUDENT_SESSION_ID);
 	}
 }

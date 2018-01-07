@@ -29,7 +29,7 @@ public class MsgSendUtils {
 		// 替换成你的AK
 		final String accessKeyId = config.getString("access.key.id");
 		final String accessKeySecret = config.getString("access.key.secret");
-		String signName = "吴先森";
+		String signName = "呆迪网络";
 		String templateId = config.getString("template.id");
 		// 设置超时时间-可自行调整
 		System.setProperty("sun.net.client.defaultConnectTimeout",
@@ -64,8 +64,7 @@ public class MsgSendUtils {
 		request.setTemplateCode(templateId);
 		// 可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
 		// 友情提示:如果JSON中需要带换行符,请参照标准的JSON协议对换行符的要求,比如短信内容中包含\r\n的情况在JSON中需要表示成\\r\\n,否则会导致JSON在服务端解析失败
-		request.setTemplateParam("{\"name\":\"" + name + "\", \"code\":\""
-				+ code + "\"}");
+		request.setTemplateParam("{\"code\":\"" + code + "\"}");
 		// 可选-上行短信扩展码(扩展码字段控制在7位或以下，无特殊需求用户请忽略此字段)
 		// request.setSmsUpExtendCode("90997");
 		// 可选:outId为提供给业务方扩展字段,最终在短信回执消息中将此值带回给调用者
@@ -99,13 +98,16 @@ public class MsgSendUtils {
 	}
 
 	public static String generateCheckCode() {
-		String chars = "0123456789";
-		char[] rands = new char[6];
+		String[] resultArr = new String[6];
 		for (int i = 0; i < 6; i++) {
 			int rand = (int) (Math.random() * 10);
-			rands[i] = chars.charAt(rand);
+			resultArr[i] = rand + "";
 		}
-		return rands.toString();
+		StringBuffer sb = new StringBuffer();
+		for (String str : resultArr) {
+			sb.append(str);
+		}
+		return sb.toString();
 	}
 
 }

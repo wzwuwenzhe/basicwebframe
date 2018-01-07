@@ -1,19 +1,26 @@
 package com.deady.utils;
 
+import net.shunpay.util.ConfigUtil;
+
+import org.apache.commons.configuration.PropertiesConfiguration;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 public final class RedisUtils {
 
+	private static PropertiesConfiguration config = ConfigUtil
+			.getProperties("deady");
+
 	// Redis服务器IP
-	private static String ADDR = "192.168.159.132";
+	private static String ADDR = config.getString("redis.ip");
 
 	// Redis的端口号
-	private static int PORT = 6379;
+	private static int PORT = config.getInt("redis.port");;
 
 	// 访问密码
-	private static String AUTH = "wenzhe";
+	private static String AUTH = config.getString("redis.auth");
 
 	// 可用连接实例的最大数目，默认值为8；
 	// 如果赋值为-1，则表示不限制；如果pool已经分配了maxActive个jedis实例，则此时pool的状态为exhausted(耗尽)。

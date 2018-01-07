@@ -23,6 +23,7 @@ public class Student implements Serializable {
 	private String isPay;// 是否支付
 	private String payTime;// 支付时间
 	private String creationTime;// 创建时间
+	private String msgCode;// 报名时的短信验证码
 
 	public Student() {
 
@@ -124,5 +125,13 @@ public class Student implements Serializable {
 
 	public void setCreationTime(String creationTime) {
 		this.creationTime = creationTime;
+	}
+
+	public String getMsgCode() {
+		return msgCode;
+	}
+
+	public void setMsgCode(String msgCode) {
+		this.msgCode = msgCode;
 	}
 }

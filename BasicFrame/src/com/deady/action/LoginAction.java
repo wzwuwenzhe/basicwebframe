@@ -85,9 +85,9 @@ public class LoginAction {
 			response.setMessage("用户名或密码错误");
 			return response;
 		}
-		// 把用户信息存到Session中
+		// 把用户信息存到Session中24小时
 		OperatorSessionInfo.save(req, OperatorSessionInfo.OPERATOR_SESSION_ID,
-				op);
+				op, 24 * 60);
 		// 如果选择记住就将用户名和密码存到Cookie中否则就删掉
 		OperatorSessionInfo.saveCookie(req, res);
 		response.setSuccess(true);

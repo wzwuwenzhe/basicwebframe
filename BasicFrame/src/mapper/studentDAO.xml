@@ -20,6 +20,14 @@
 		<select id="findStudentByClassIdAndName" resultType="Student">
 			select * from hc_student where class_id=#{classId} and name=#{name}
 		</select>
+		
+		<update id="apply" >
+			update hc_student set is_apply='1' ,apply_time=#{now} where id=#{studentId}
+		</update>
+		
+		<update id="pay" >
+			update hc_student set is_pay='1' ,pay_time=#{now} where id=#{studentId}
+		</update>
 
 </mapper>
 
