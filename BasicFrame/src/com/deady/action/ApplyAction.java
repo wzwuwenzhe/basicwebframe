@@ -126,10 +126,9 @@ public class ApplyAction {
 		String code = MsgSendUtils.generateCheckCode();
 		// Map<String, Object> resultMap = MsgSendUtils.sendMsg(phone,
 		// student.getName(), code);
-		logger.info(student.getName() + ":code:" + code);
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("result", true);
-		resultMap.put("message", "请求成功!");
+		logger.info(student.getName() + ":code:" + code);
 		if (null != resultMap && (Boolean) resultMap.get("result")) {
 			// 验证码 存到session中
 			Student stu = OperatorSessionInfo.getStudent(req);

@@ -24,9 +24,7 @@
 				data:{classId:$("#classId").val(),name:name,phone:phone,_token:_token},
 				success:function(response){
 					$("input[name='_token']").val(response.token);
-					if(response.success != true){
-						alert(response.message);
-					}
+					alert(response.message);
 					if(response.data=="not_pay"){
 						//打开弹框
 			            layer.open({
@@ -34,7 +32,7 @@
 			                shift:-1,
 			                title: '付款',
 			                closeBtn:0,
-			                area: ['300px','550px'],
+			                area: ['310px','550px'],
 			                content: $("#payInfo"),
 			                btn:["关闭"],
 			                cancel:function(){
@@ -71,10 +69,11 @@
         window.setTimeout(function() {
             if(timeLeft > 0) {
                 timeLeft -= 1;
-                btn.html(timeLeft + "秒后重新发送");
+                btn.val(timeLeft + "秒后重新发送");
                 timeCount();
             } else {
-                btn.html("重新发送");
+            	reset();
+                btn.val("重新发送");
             }
         }, 1000);
     }
