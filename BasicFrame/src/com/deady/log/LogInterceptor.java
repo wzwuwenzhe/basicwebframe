@@ -1,10 +1,15 @@
 package com.deady.log;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.JoinPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.deady.entity.Operator;
+import com.deady.utils.OperatorSessionInfo;
 
 public class LogInterceptor {
 

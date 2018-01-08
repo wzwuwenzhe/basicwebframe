@@ -33,10 +33,10 @@ public class StudentServiceImpl implements StudentService {
 	 *            1:报名 2:付款
 	 */
 	@Override
-	public void apply(String studentId, int type) {
+	public void apply(String studentId, String phone, int type) {
 		String now = DateUtils.getCurrentDate("yyyy-MM-dd HH:mm:ss");
 		if (type == 1) {
-			studentDAO.apply(studentId, now);
+			studentDAO.apply(studentId, phone, now);
 		} else if (type == 2) {
 			studentDAO.pay(studentId, now);
 		}

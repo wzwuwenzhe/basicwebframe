@@ -104,6 +104,7 @@ public class ApplyAction {
 		}
 		if (student.getIsApply().equals("1") && student.getIsPay().equals("1")) {
 			response.setSuccess(true);
+			response.setData("is_payed");
 			response.setMessage("您已成功报名!并缴费成功!");
 			return response;
 		}
@@ -124,10 +125,10 @@ public class ApplyAction {
 		}
 
 		String code = MsgSendUtils.generateCheckCode();
-		// Map<String, Object> resultMap = MsgSendUtils.sendMsg(phone,
-		// student.getName(), code);
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("result", true);
+		Map<String, Object> resultMap = MsgSendUtils.sendMsg(phone,
+				student.getName(), code);
+		// Map<String, Object> resultMap = new HashMap<String, Object>();
+		// resultMap.put("result", true);
 		logger.info(student.getName() + ":code:" + code);
 		if (null != resultMap && (Boolean) resultMap.get("result")) {
 			// 验证码 存到session中
@@ -136,6 +137,7 @@ public class ApplyAction {
 				stu = student;
 			}
 			stu.setMsgCode(code);
+			stu.setPhone(phone);
 			OperatorSessionInfo.save(req,
 					OperatorSessionInfo.STUDENT_SESSION_ID, stu, 10);
 
@@ -178,7 +180,7 @@ public class ApplyAction {
 			return response;
 		}
 		// 验证通过 添加报名信息
-		studentService.apply(stu.getId(), 1);
+		studentService.apply(stu.getId(), stu.getPhone(), 1);
 		// 显示付款页面(由于没有注册公司,所以只能显示个人账号二维码)
 		response.setSuccess(true);
 		response.setMessage("报名成功!");

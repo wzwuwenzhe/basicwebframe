@@ -57,14 +57,14 @@
     		$("input[name='_token']").val(response.token);
     		alert(response.message);
 			if(response.success==true){
-				if(response.data=="not_pay"){
+				if(response.data!="is_payed"){
 					//打开弹框
 		            layer.open({
 		                type:1,
 		                shift:-1,
 		                title: '长按,识别图中二维码付款',
 		                closeBtn:0,
-		                area: ['310px','600px'],
+		                area: ['280px','480px'],
 		                content: $("#payInfo"),
 		                btn:["关闭"],
 		                cancel:function(){

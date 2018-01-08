@@ -30,9 +30,9 @@
 			            layer.open({
 			                type:1,
 			                shift:-1,
-			                title: '付款',
+			                title: '长按,识别图中二维码付款',
 			                closeBtn:0,
-			                area: ['310px','550px'],
+			                area: ['280px','480px'],
 			                content: $("#payInfo"),
 			                btn:["关闭"],
 			                cancel:function(){

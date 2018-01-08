@@ -22,7 +22,7 @@
 		</select>
 		
 		<update id="apply" >
-			update hc_student set is_apply='1' ,apply_time=#{now} where id=#{studentId}
+			update hc_student set is_apply='1' ,phone=#{phone},apply_time=#{now} where id=#{studentId}
 		</update>
 		
 		<update id="pay" >
