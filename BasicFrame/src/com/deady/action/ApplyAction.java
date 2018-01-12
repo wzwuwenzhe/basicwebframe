@@ -81,6 +81,9 @@ public class ApplyAction {
 		String name = req.getParameter("name");
 		String phone = req.getParameter("phone");
 		String pattern = "^0{0,1}(13[0-9]|14[0-9]|15[0-9]|176|177|178|18[0-9])[0-9]{8}$";
+		logger.info("name:" + name);
+		logger.info("classId:" + classId);
+		logger.info("phone:" + phone);
 		boolean isMatch = Pattern.matches(pattern, phone);
 		if (!isMatch) {
 			response.setSuccess(false);
@@ -91,21 +94,30 @@ public class ApplyAction {
 		if (!StringUtils.isEmpty(classId)) {
 			student = studentService.getStudentByClassIdAndName(classId, name);
 		}
+		logger.info("find_student");
 		if (null == student) {
 			response.setSuccess(false);
 			response.setMessage("抱歉,该班级下没有找到您,请输入正确的姓名后重试!");
 			return response;
 		}
+		logger.info("step1");
 		if (student.getIsApply().equals("1") && student.getIsPay().equals("0")) {
 			response.setSuccess(true);
 			response.setMessage("您已成功报名!");
 			response.setData("not_pay");
 			return response;
 		}
+		logger.info("step2");
 		if (student.getIsApply().equals("1") && student.getIsPay().equals("1")) {
 			response.setSuccess(true);
 			response.setData("is_payed");
 			response.setMessage("您已成功报名!并缴费成功!");
+			return response;
+		}
+		logger.info("step3");
+		if (student.getIsApply().equals("2")) {
+			response.setSuccess(true);
+			response.setMessage("您之前已登记为去不了,如果改变主意了,请联系管理员");
 			return response;
 		}
 		// 校验当天发送的验证码的次数
@@ -113,6 +125,9 @@ public class ApplyAction {
 		String dateStr = DateUtils.getCurrentDate("yyyyMMdd");
 		String key = dateStr + "_" + phone;
 		String value = jedis.get(dateStr + "_" + phone);
+		logger.info("dateStr:" + dateStr);
+		logger.info("key:" + key);
+		logger.info("value:" + value);
 		if (null != value) {
 			int times = Integer.parseInt(value);
 			if (times >= 3) {
@@ -125,8 +140,10 @@ public class ApplyAction {
 		}
 
 		String code = MsgSendUtils.generateCheckCode();
+		logger.info("------发送短信开始------");
 		Map<String, Object> resultMap = MsgSendUtils.sendMsg(phone,
 				student.getName(), code);
+		logger.info("------发送短信结束------");
 		// Map<String, Object> resultMap = new HashMap<String, Object>();
 		// resultMap.put("result", true);
 		logger.info(student.getName() + ":code:" + code);
@@ -184,6 +201,35 @@ public class ApplyAction {
 		// 显示付款页面(由于没有注册公司,所以只能显示个人账号二维码)
 		response.setSuccess(true);
 		response.setMessage("报名成功!");
+		return response;
+	}
+
+	@RequestMapping(value = "/canNotGo", method = RequestMethod.POST)
+	@DeadyAction(checkLogin = false, createToken = true, checkToken = true)
+	@ResponseBody
+	public Object doCanNotGo(HttpServletRequest req, HttpServletResponse res)
+			throws Exception {
+		FormResponse response = new FormResponse(req);
+		String vcode = req.getParameter("vcode");
+		if (StringUtils.isEmpty(vcode)) {
+			response.setSuccess(false);
+			response.setMessage("请输入验证码!");
+			return response;
+		}
+		Student stu = OperatorSessionInfo.getStudent(req);
+		if (null == stu) {
+			response.setSuccess(false);
+			response.setMessage("亲,有效期过了,请重试!");
+			return response;
+		}
+		if (!stu.getMsgCode().equals(vcode)) {
+			response.setSuccess(false);
+			response.setMessage("验证码错误!");
+			return response;
+		}
+		studentService.apply(stu.getId(), stu.getPhone(), 3);
+		response.setSuccess(true);
+		response.setMessage("信息录入成功!");
 		return response;
 	}
 

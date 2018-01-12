@@ -60,7 +60,7 @@ public class LoginAction {
 			throws Exception {
 		Operator op = (Operator) OperatorSessionInfo.getOperator(req);
 		if (!StringUtils.isEmpty(op)) {
-			return new ModelAndView("redirect:/index");
+			return new ModelAndView("redirect:/reserveSearch");
 		}
 		return new ModelAndView("redirect:/login");
 	}

@@ -23,9 +23,8 @@
 		<#if _token?exists>_token='${_token}';</#if>
 		var _loginCallback=function(response){
 			if(response.success==true){
-			    location.href="${url("/index")}";
+			    location.href="${url("/reserveSearch")}";
 			}else{
-				//$(".alert.alert-danger").html(response.msg);
 				alert(response.msg);
 			}
 		}

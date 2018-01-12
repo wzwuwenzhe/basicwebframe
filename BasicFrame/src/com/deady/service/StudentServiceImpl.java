@@ -36,10 +36,17 @@ public class StudentServiceImpl implements StudentService {
 	public void apply(String studentId, String phone, int type) {
 		String now = DateUtils.getCurrentDate("yyyy-MM-dd HH:mm:ss");
 		if (type == 1) {
-			studentDAO.apply(studentId, phone, now);
+			studentDAO.apply(studentId, phone, now, "1");
 		} else if (type == 2) {
 			studentDAO.pay(studentId, now);
+		} else if (type == 3) {
+			studentDAO.apply(studentId, phone, now, "2");
 		}
+	}
+
+	@Override
+	public Student getStudentById(String studentId) {
+		return studentDAO.findStudentById(studentId);
 	}
 
 }

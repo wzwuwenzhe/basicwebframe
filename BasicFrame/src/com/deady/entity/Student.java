@@ -2,6 +2,8 @@ package com.deady.entity;
 
 import java.io.Serializable;
 
+import com.deady.enums.ReserveStateEnum;
+
 public class Student implements Serializable {
 	private static final long serialVersionUID = -4985803759679763488L;
 	@BasicEntityField(length = 6)
@@ -24,6 +26,7 @@ public class Student implements Serializable {
 	private String payTime;// 支付时间
 	private String creationTime;// 创建时间
 	private String msgCode;// 报名时的短信验证码
+	private String stateDesc;// 状态描述
 
 	public Student() {
 
@@ -133,5 +136,23 @@ public class Student implements Serializable {
 
 	public void setMsgCode(String msgCode) {
 		this.msgCode = msgCode;
+	}
+
+	public String getStateDesc() {
+		if (this.isApply.equals("0")) {
+			return ReserveStateEnum.NOT_REGISTER.getDesc();
+		} else if (this.isApply.equals("1") && this.isPay.equals("0")) {
+			return ReserveStateEnum.NOT_PAY.getDesc();
+		} else if (this.isApply.equals("1") && this.isPay.equals("1")) {
+			return ReserveStateEnum.PAYED.getDesc();
+		} else if (this.isApply.equals("2")) {
+			return ReserveStateEnum.NOT_GO.getDesc();
+		} else {
+			return ReserveStateEnum.UNKNOW.getDesc();
+		}
+	}
+
+	public void setStateDesc(String stateDesc) {
+		this.stateDesc = stateDesc;
 	}
 }

@@ -14,8 +14,11 @@ public interface StudentDAO {
 			@Param("name") String name);
 
 	void apply(@Param("studentId") String studentId,
-			@Param("phone") String phone, @Param("now") String now);
+			@Param("phone") String phone, @Param("now") String now,
+			@Param("applyType") String applyType);
 
 	void pay(@Param("studentId") String studentId, @Param("now") String now);
+
+	Student findStudentById(String studentId);
 
 }

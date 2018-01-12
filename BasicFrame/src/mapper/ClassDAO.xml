@@ -11,6 +11,15 @@
             hc_student
         WHERE
             class_id = #{classId}
+        order by code+0
+    </select>
+    
+    <select id="findClassListBySchoolIds" parameterType="java.util.List" resultType="com.deady.entity.Clazz">
+    	select * from hc_class where school_id in
+    	<foreach collection="list" item="str" index="index"
+		       separator=",">
+		       ( #{str})
+		   </foreach>
     </select>
 
 </mapper>

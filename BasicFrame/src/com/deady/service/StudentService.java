@@ -15,8 +15,10 @@ public interface StudentService {
 	 * 
 	 * @param studentId
 	 * @param type
-	 *            1:报名 2:付款
+	 *            1:报名 2:付款3:不报名
 	 */
 	void apply(String studentId, String phone, int type);
+
+	Student getStudentById(String studentId);
 
 }

@@ -17,7 +17,7 @@
 	</div>
 	<div class="form-group" style="margin-right:100px;">
 		<input type="submit" value="报名" class="btn btn-primary">
-		<input type="button" value="返回" class="btn btn-primary back"  onclick="window.history.back()">
+		<input type="button" value="不去" class="btn btn-primary back"  onclick="canNotGo()">
 	</div>
 	</@form>
 	<@showMsg type="danger"/>
@@ -73,6 +73,33 @@
 				}
 			}
 		}
+		
+		function canNotGo(){
+		var token = $("input[name='_token']").val();
+		var vcode = $("#vcode").val();
+		infoUtil.confirm("确定去不了吗?",{
+	        title:'选项确认',
+	        closeBtn:0,
+	        shift:-1,
+	        btn: ['确定','取消'] //按钮
+	    },function(_index){
+	        infoUtil.close();
+	        $.ajax({
+					url:"./canNotGo.htm",
+					type:"POST",
+					dataType:"json",
+					data:{_token:token,vcode:vcode},
+					success:function(response){
+						$("input[name='_token']").val(response.token);
+						alert(response.message);
+			        },
+			        error:function(){
+			            alert("系统错误,请联系管理员");
+			        }
+				});
+	    },function(){});
+		}
+		
 	</script>
 </@htmlBody>
 <@htmlFooter/>

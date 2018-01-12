@@ -22,12 +22,16 @@
 		</select>
 		
 		<update id="apply" >
-			update hc_student set is_apply='1' ,phone=#{phone},apply_time=#{now} where id=#{studentId}
+			update hc_student set is_apply=#{applyType} ,phone=#{phone},apply_time=#{now} where id=#{studentId}
 		</update>
 		
 		<update id="pay" >
 			update hc_student set is_pay='1' ,pay_time=#{now} where id=#{studentId}
 		</update>
+		
+		<select id="findStudentById" resultType="Student">
+			select * from hc_student where id=#{studentId}
+		</select>
 
 </mapper>
 
